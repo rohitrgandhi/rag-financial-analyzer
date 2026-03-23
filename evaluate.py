@@ -13,6 +13,8 @@ from ragas.metrics import (
     context_precision,
     context_recall
 )
+import numpy as np
+
 
 print("="*70)
 print("🎯 RAG SYSTEM EVALUATION - RAGAS FRAMEWORK")
@@ -137,10 +139,10 @@ print("📊 EVALUATION RESULTS")
 print("="*70)
 
 # Extract scores from the result object
-faithfulness_score = evaluation_result['faithfulness']
-relevancy_score = evaluation_result['answer_relevancy']
-precision_score = evaluation_result['context_precision']
-recall_score = evaluation_result['context_recall']
+faithfulness_score = np.mean(evaluation_result['faithfulness'])
+relevancy_score = np.mean(evaluation_result['answer_relevancy'])
+precision_score = np.mean(evaluation_result['context_precision'])
+recall_score = np.mean(evaluation_result['context_recall'])
 
 print(f"""
 Overall Scores:
