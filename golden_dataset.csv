@@ -1,0 +1,11 @@
+question,ground_truth,category
+What was the revenue in Q3 FY26?,Rs. 2530 crores,financial_metrics
+What was the EBITDA margin?,13.7%,financial_metrics
+What was the year-on-year revenue growth?,Over 18%,growth_metrics
+What is the net cash position?,Over Rs. 1000 crores,balance_sheet
+What is the total order book value?,Rs. 163 billion,business_metrics
+Who is the CEO of India Cluster?,Shailesh Kumar,management
+What was the PAT growth year-on-year?,24%,growth_metrics
+How many consecutive quarters has the company been net cash positive?,12 quarters,balance_sheet
+What was the EBITDA value in Q3?,Rs. 347 crores,financial_metrics
+What guidance was provided for revenue growth?,In line with medium-term guidance,forward_looking
