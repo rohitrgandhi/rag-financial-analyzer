@@ -1,0 +1,30 @@
+# Environment variables (CRITICAL - protects API key!)
+.env
+
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Vector database (too large for GitHub)
+chroma_db/
+
+# macOS files
+.DS_Store
+
+# VSCode settings
+.vscode/
+
+# Test files
+test.py
+
+# PDF documents (large files)
+*.pdf
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
