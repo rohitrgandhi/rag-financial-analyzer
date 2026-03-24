@@ -8,10 +8,11 @@ Production-grade Retrieval-Augmented Generation (RAG) system for analyzing finan
 
 ## 🎯 Key Achievements
 
-- ✅ **94% Accuracy** (Faithfulness score)
+- ✅ **0.79 Evaluation Score** (RAGAS framework)
 - ✅ **360x Faster** than manual analysis (90 min → 15 sec)
 - ✅ **$0.002 per query** cost efficiency
 - ✅ **91 chunks** from 23-page document
+- ✅ **Automated evaluation** with golden dataset methodology
 
 ## 🏗️ System Architecture
 ```
@@ -26,7 +27,23 @@ Retrieve Top 4 Chunks
 GPT-3.5-turbo Generation
     ↓
 Natural Language Answer
+    ↓
+RAGAS Evaluation (Faithfulness, Relevancy, Precision, Recall)
 ```
+
+## ✨ Features
+
+- **Document Ingestion**: Automated PDF processing with intelligent chunking
+- **Semantic Search**: OpenAI embeddings with ChromaDB vector database
+- **Natural Language Q&A**: GPT-3.5 Turbo for accurate question answering
+- **Source Attribution**: Every answer includes document references
+- **Evaluation Framework**: RAGAS metrics for automated quality assessment
+- **Web Interface**: Interactive Streamlit UI with chat history
+- **Performance Metrics**: 
+  - Faithfulness (factual accuracy)
+  - Answer Relevancy (question-answer alignment)
+  - Context Precision (retrieval quality)
+  - Context Recall (information completeness)
 
 ## 🛠️ Tech Stack
 
@@ -35,16 +52,21 @@ Natural Language Answer
 - **OpenAI API** - GPT-3.5-turbo, text-embedding-3-small
 - **ChromaDB** - Vector database with HNSW indexing
 - **PyPDF** - PDF document processing
-- **RAGAS** - Evaluation framework (coming soon)
+- **RAGAS** - Evaluation framework
+- **Streamlit** - Web interface
 
 ## 📁 Project Structure
 ```
 RAG-Project/
-├── ingest.py          # Document ingestion & chunking
-├── query.py           # Interactive Q&A interface
-├── requirements.txt   # Python dependencies
-├── README.md         # Project documentation
-└── .env.example      # Environment variables template
+├── ingest.py                 # Document ingestion & chunking
+├── query.py                  # Interactive Q&A interface
+├── evaluate.py               # RAGAS evaluation framework
+├── app.py                    # Streamlit web interface
+├── golden_dataset.csv        # 10 verified Q&A pairs
+├── evaluation_results.csv    # Detailed metrics per question
+├── requirements.txt          # Python dependencies
+├── README.md                # Project documentation
+└── .env.example             # Environment variables template
 ```
 
 ## 🚀 Quick Start
@@ -57,7 +79,7 @@ RAG-Project/
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/YourUsername/rag-financial-analyzer.git
+git clone https://github.com/rohitrgandhi/rag-financial-analyzer.git
 cd rag-financial-analyzer
 
 # Create virtual environment
@@ -65,22 +87,22 @@ python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install langchain langchain-community langchain-openai langchain-chroma chromadb pypdf langchain-text-splitters python-dotenv ragas streamlit
 
 # Set up environment variables
 cp .env.example .env
 # Edit .env and add your OpenAI API key
 ```
 
-### Usage
+## 🎯 Usage
 
-**Step 1: Ingest Your Document**
+### 1. Ingest Documents
 ```bash
 python ingest.py
 ```
-This processes your PDF, creates embeddings, and stores them in ChromaDB.
+Processes your PDF, creates embeddings, and stores them in ChromaDB.
 
-**Step 2: Ask Questions**
+### 2. Query the System (Terminal)
 ```bash
 python query.py
 ```
@@ -102,16 +124,43 @@ Source 1: Revenue growth was over 18%, in line with medium-term
 guidance, supported by robust execution across the project portfolio...
 ```
 
-## 📊 Performance Metrics
+### 3. Run Evaluation
+```bash
+python evaluate.py
+```
+Generates `evaluation_results.csv` with detailed performance metrics.
 
-Evaluated using RAGAS framework on 10-question golden dataset:
+### 4. Launch Web Interface
+```bash
+streamlit run app.py
+```
+Opens interactive web UI at `http://localhost:8501`
 
-| Metric | Score | Description |
-|--------|-------|-------------|
-| **Faithfulness** | 0.94 | Factually grounded in source documents |
-| **Answer Relevancy** | 0.89 | Answers directly address questions |
-| **Context Precision** | 0.87 | Retrieved chunks are relevant |
-| **Context Recall** | 0.91 | Complete information retrieved |
+## 📊 Evaluation Results
+
+This project implements automated evaluation using the RAGAS framework with a golden dataset of 10 manually verified Q&A pairs:
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| **Average Score** | **0.79** | Overall system performance |
+| Faithfulness | > 0.90 | Factual accuracy (anti-hallucination) |
+| Answer Relevancy | > 0.85 | Question-answer alignment |
+| Context Precision | > 0.85 | Retrieval quality |
+| Context Recall | > 0.85 | Information completeness |
+
+**Evaluation Methodology:**
+- Golden dataset: 10 manually verified Q&A pairs from earnings call
+- Automated testing with RAGAS framework
+- Metrics-driven optimization approach
+- Baseline established for A/B testing improvements
+
+See `evaluation_results.csv` for detailed per-question performance.
+
+**Interpretation:**
+- **0.90 - 1.00** → Excellent (Production-ready) ✅
+- **0.80 - 0.90** → Good (Minor improvements needed) ⚠️
+- **0.70 - 0.80** → Fair (Needs optimization) 🔧
+- **< 0.70** → Poor (Significant issues) ❌
 
 ## 🔬 Technical Details
 
@@ -150,18 +199,22 @@ Evaluated using RAGAS framework on 10-question golden dataset:
 - **RAG Architecture:** Designed and implemented production-grade retrieval-augmented generation pipeline
 - **Vector Embeddings:** Deep understanding of semantic search using 1,536-dimensional vector representations
 - **LLM Integration:** Hands-on experience with OpenAI API, prompt engineering, and context management
-- **Evaluation Frameworks:** Implemented RAGAS metrics for measuring Faithfulness and Answer Relevancy
+- **Evaluation Frameworks:** Implemented RAGAS metrics for measuring Faithfulness, Answer Relevancy, Context Precision, and Context Recall
+- **Golden Dataset Methodology:** Created verified Q&A pairs for automated system validation
 - **Optimization:** Balanced trade-offs between chunk size (500-1500), overlap (15-25%), and retrieval count (k=3-6)
 - **Cost Efficiency:** Achieved $0.002 per query through strategic model selection and caching
+- **Web Development:** Built interactive Streamlit interface with chat history and source attribution
 
 ## 🚧 Roadmap
 
-- [ ] **Sprint 3:** RAGAS evaluation framework with 10+ question golden dataset
+- [x] **Sprint 1:** Document ingestion with ChromaDB vector storage
+- [x] **Sprint 2:** Interactive Q&A query system
+- [x] **Sprint 3:** RAGAS evaluation framework with golden dataset
+- [x] **Bonus:** Streamlit web interface
 - [ ] **Sprint 4:** A/B testing for chunk size optimization (800 vs 1000 vs 1200)
-- [ ] **Streamlit UI:** Web interface for easier interaction
-- [ ] **Multi-document support:** Query across multiple earnings calls
-- [ ] **Conversation history:** Context-aware follow-up questions
-- [ ] **Citation improvements:** Highlight exact sentences in source
+- [ ] **Future:** Multi-document support across multiple earnings calls
+- [ ] **Future:** Conversation history with context-aware follow-up questions
+- [ ] **Future:** Advanced citation with sentence-level highlighting
 
 ## 💡 Use Cases
 
@@ -175,29 +228,17 @@ This system can be adapted for:
 ## 🛡️ Safety & Limitations
 
 **Strengths:**
-- High accuracy (94% Faithfulness) prevents hallucinations
-- Source attribution for transparency
-- Deterministic responses (temperature=0)
+- Automated evaluation framework prevents performance degradation
+- Source attribution for transparency and verification
+- Deterministic responses (temperature=0) for consistency
+- Metrics-driven development approach
 
 **Limitations:**
+- Performance depends on document quality and chunking strategy
 - Limited to information in the source document
 - May miss nuanced context across distant document sections
-- Performance depends on chunking quality
 - Requires OpenAI API (not fully open-source)
-
-## 📝 License
-
-MIT License - feel free to use this code for your own projects!
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- Current score (0.79) indicates room for optimization
 
 ## 📧 Contact
 
@@ -205,6 +246,7 @@ Contributions, issues, and feature requests are welcome!
 
 - LinkedIn: https://www.linkedin.com/in/rohitgandhi0805/
 - Email: rohit.r.gandhi@gmail.com
+- GitHub: https://github.com/rohitrgandhi
 
 **Project Link:** https://github.com/rohitrgandhi/rag-financial-analyzer
 
@@ -212,4 +254,4 @@ Contributions, issues, and feature requests are welcome!
 
 ⭐ **If you found this project helpful, please consider giving it a star!** ⭐
 
-*Built with ❤️ using LangChain, OpenAI, and ChromaDB*
+*Built with ❤️ using LangChain, OpenAI, ChromaDB, RAGAS, and Streamlit*
